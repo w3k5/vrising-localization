@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.download-button {
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+}
