@@ -1,7 +1,4 @@
-import {
-	LanguageNode,
-	LanguageData,
-} from "../interfaces/language-data.interface";
+import { LanguageData } from "../interfaces/language-data.interface";
 
 const attachLanguageNodeByGuid = (
 	english: LanguageData,
