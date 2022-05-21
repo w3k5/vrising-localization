@@ -42,3 +42,16 @@
 	bottom: 30px;
 	right: 30px;
 }
+
+.App.Dragger {
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 20px;
+}
+
+.dragger-wrapper {
+	max-width: 800px;
+	width: 100%;
+}

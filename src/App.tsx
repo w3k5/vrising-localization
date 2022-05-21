@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useState } from "react";
-import { Table, Input, Button, notification, Upload, message } from "antd";
+import { Table, Input, Button, notification, Upload } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 import { DebounceInput } from "react-debounce-input";
 import "./App.css";
@@ -9,6 +9,7 @@ import * as englishLanguageData from "./assets/languages/English.json";
 import { LanguageTranslateNode } from "./interfaces/language-data.interface";
 import generateTranslateFile from "./utils/generate-translate";
 import downloadFile from "./utils/download";
+import { RcFile } from "antd/lib/upload";
 
 const { TextArea } = Input;
 const { Dragger } = Upload;
@@ -18,15 +19,18 @@ const props = {
 	multiple: false,
 	accept: ".json",
 	showUploadList: false,
-	onDrop(e: any) {
-		console.log("Dropped files", e.dataTransfer.files);
-	},
 };
 
-const openNotificationWithIcon = () => {
+const openNotificationWithIcon = ({
+	message,
+	description,
+}: {
+	message?: string;
+	description?: string;
+}) => {
 	notification.error({
-		message: "Неверный файл!",
-		description: "Загрузите валидный файл локализации!",
+		message: message || "Неверный файл!",
+		description: description || "Загрузите валидный файл локализации!",
 	});
 };
 interface InputChangeHandlerInterface {
@@ -38,8 +42,6 @@ interface InputChangeHandlerInterface {
 
 function App() {
 	const [languageData, setLanguageData] = useState<LanguageTranslateNode[]>([]);
-	const [languageFile, setLanguageFile] = useState("");
-	const inputRef = useRef(null);
 
 	const onInputChange: (options: InputChangeHandlerInterface) => void = ({
 		event,
@@ -89,35 +91,31 @@ function App() {
 		downloadFile(data, "Russian");
 	};
 
-	const resetInput = () => {
-		if (inputRef.current) {
-			(inputRef.current as any).value = "";
-		}
-	};
-
-	const handleChange = (e: any) => {
+	const handleChange = (file: RcFile) => {
 		const fileReader = new FileReader();
-		fileReader.readAsText(e, "UTF-8");
+		fileReader.readAsText(file, "UTF-8");
 		fileReader.onload = (e) => {
-			console.log(e);
-			setLanguageFile((e.target as any).result);
+			if (!e.target) {
+				openNotificationWithIcon({
+					message: "Error",
+					description: "File is empty!",
+				});
+				return;
+			}
 			try {
 				const parsedData = attachLanguageNodeByGuid(
 					englishLanguageData,
-					JSON.parse((e.target as any).result)
+					JSON.parse(e.target.result as string)
 				);
 				setLanguageData(parsedData);
 			} catch (error) {
-				console.log(inputRef);
-				resetInput();
-				openNotificationWithIcon();
-				setLanguageFile("");
+				openNotificationWithIcon({});
 			}
 		};
 	};
 
 	return (
-		<div className="App">
+		<div className={languageData.length ? "App Editor" : "App Dragger"}>
 			{languageData.length ? (
 				<div className="edit-table">
 					<Table
@@ -135,18 +133,20 @@ function App() {
 					</div>
 				</div>
 			) : (
-				<Dragger {...props} beforeUpload={handleChange}>
-					<p className="ant-upload-drag-icon">
-						<InboxOutlined />
-					</p>
-					<p className="ant-upload-text">
-						Нажмите или перетащите файл для загрузки
-					</p>
-					<p className="ant-upload-hint">
-						Поддерживает только валидный файл локализации
-						<br />
-					</p>
-				</Dragger>
+				<div className="dragger-wrapper">
+					<Dragger {...props} beforeUpload={handleChange}>
+						<p className="ant-upload-drag-icon">
+							<InboxOutlined />
+						</p>
+						<p className="ant-upload-text">
+							Нажмите или перетащите файл для загрузки
+						</p>
+						<p className="ant-upload-hint">
+							Поддерживает только валидный файл локализации
+							<br />
+						</p>
+					</Dragger>
+				</div>
 			)}
 		</div>
 	);
