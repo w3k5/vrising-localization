@@ -40,6 +40,24 @@
 	flex: 1;
 }
 
-footer {
+footer .links a:not(:first-of-type) {
+	margin-left: 8px;
+}
 
+.block {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.buttons {
+	margin-bottom: 16px;
+}
+
+.buttons button:not(:last-of-type) {
+	margin-right: 10px;
+}
+
+.instruction pre {
+	
 }
