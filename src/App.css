@@ -1,57 +1,45 @@
 .App {
-  text-align: center;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App.Dragger {
+	/* padding: 0 20px; */
 }
 
 .download-button {
 	position: fixed;
-	bottom: 30px;
+	bottom: 50px;
 	right: 30px;
 }
 
-.App.Dragger {
-	height: 100vh;
+
+.dragger-container {
 	display: flex;
-	align-items: center;
+	flex: 1;
+	flex-direction: column;
 	justify-content: center;
-	padding: 0 20px;
+	align-items: center;
 }
 
 .dragger-wrapper {
 	max-width: 800px;
+	margin: 0 auto;
 	width: 100%;
+}
+
+.edit-table {
+	flex: 1;
+	margin: 20px 30px 0 30px;
+}
+
+.table-actions {
+	display: flex;
+	justify-content: flex-end;
+	flex: 1;
+}
+
+footer {
+
 }

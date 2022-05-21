@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { Table, Input, Button, notification, Upload } from "antd";
-import { InboxOutlined } from "@ant-design/icons";
+import { Table, Input, Button, notification, Upload, Layout } from "antd";
+import { InboxOutlined, GithubFilled } from "@ant-design/icons";
 import { DebounceInput } from "react-debounce-input";
 import "./App.css";
 import attachLanguageNodeByGuid from "./utils/compare-languages";
@@ -13,6 +13,7 @@ import { RcFile } from "antd/lib/upload";
 
 const { TextArea } = Input;
 const { Dragger } = Upload;
+const { Footer } = Layout;
 
 const props = {
 	name: "file",
@@ -122,32 +123,49 @@ function App() {
 						dataSource={languageData}
 						columns={columns}
 						rowKey="Guid"
-						scroll={{ y: "calc(100vh - 200px)" }}
+						scroll={{ y: "calc(100vh - 250px)" }}
 						tableLayout="fixed"
 						sticky
+						bordered
 					/>
-					<div className="download-button">
+					<div className="table-actions">
 						<Button type="primary" onClick={onDownload}>
 							Скачать
 						</Button>
 					</div>
 				</div>
 			) : (
-				<div className="dragger-wrapper">
-					<Dragger {...props} beforeUpload={handleChange}>
-						<p className="ant-upload-drag-icon">
-							<InboxOutlined />
-						</p>
-						<p className="ant-upload-text">
-							Нажмите или перетащите файл для загрузки
-						</p>
-						<p className="ant-upload-hint">
-							Поддерживает только валидный файл локализации
-							<br />
-						</p>
-					</Dragger>
+				<div className="dragger-container">
+					<div className="dragger-wrapper">
+						<Dragger {...props} beforeUpload={handleChange}>
+							<p className="ant-upload-drag-icon">
+								<InboxOutlined />
+							</p>
+							<p className="ant-upload-text">
+								Нажмите или перетащите файл для загрузки
+							</p>
+							<p className="ant-upload-hint">
+								Поддерживает только валидный файл локализации
+								<br />
+							</p>
+						</Dragger>
+					</div>
 				</div>
 			)}
+			<footer>
+				<Footer>
+					<div className="links">
+						<a
+							href="https://github.com/w3k5/vrising-localization"
+							target="_blank"
+							className="github"
+							rel="noreferrer"
+						>
+							<GithubFilled /> GitHub Source Code
+						</a>
+					</div>
+				</Footer>
+			</footer>
 		</div>
 	);
 }
