@@ -148,20 +148,22 @@ function App() {
 	return (
 		<div className={languageData.length ? "App Editor" : "App Dragger"}>
 			{languageData.length ? (
-				<div className="edit-table">
-					<Table
-						dataSource={languageData}
-						columns={columns}
-						rowKey="Guid"
-						scroll={{ y: "calc(100vh - 250px)" }}
-						tableLayout="fixed"
-						sticky
-						bordered
-					/>
-					<div className="table-actions">
-						<Button type="primary" onClick={onDownload}>
-							Скачать
-						</Button>
+				<div className="container">
+					<div className="edit-table">
+						<Table
+							dataSource={languageData}
+							columns={columns}
+							rowKey="Guid"
+							scroll={{ y: "calc(100vh - 272px)" }}
+							tableLayout="fixed"
+							sticky
+							bordered
+						/>
+						<div className="table-actions">
+							<Button type="primary" onClick={onDownload}>
+								Скачать
+							</Button>
+						</div>
 					</div>
 				</div>
 			) : (
@@ -197,7 +199,11 @@ function App() {
 							Чтобы запустить локализацию перенесите файл в
 							<ol>
 								<li>
-									x:\SteamLibrary\steamapps\common\VRising\VRising_Data\StreamingAssets\Localization
+									<span className="ant-typography">
+										<code>
+											x:\SteamLibrary\steamapps\common\VRising\VRising_Data\StreamingAssets\Localization
+										</code>
+									</span>
 								</li>
 								<li>Выберите русский язык в настройках игрыы</li>
 							</ol>
@@ -207,39 +213,41 @@ function App() {
 			)}
 			<footer>
 				<Footer>
-					<div className="links">
-						<a
-							href="https://github.com/w3k5/vrising-localization"
-							target="_blank"
-							className="github"
-							rel="noreferrer"
-						>
-							<GithubFilled /> GitHub Source Code
-						</a>
-						<a
-							href="https://steamcommunity.com/id/480248681"
-							target="_blank"
-							className="steam"
-							rel="noreferrer"
-						>
-							<FireFilled /> My Steam Account
-						</a>
-						<a
-							href="https://yoomoney.ru/to/4100117492734109"
-							target="_blank"
-							className="donate"
-							rel="noreferrer"
-						>
-							<DollarCircleFilled /> Поддержать создателя приложения
-						</a>
-						<a
-							href="https://discord.com/invite/sathQfW"
-							target="_blank"
-							className="donate"
-							rel="noreferrer"
-						>
-							<DollarCircleFilled /> Поддержать JloKo напишите ему в дискорд
-						</a>
+					<div className="container">
+						<div className="links">
+							<a
+								href="https://github.com/w3k5/vrising-localization"
+								target="_blank"
+								className="github"
+								rel="noreferrer"
+							>
+								<GithubFilled /> GitHub Source Code
+							</a>
+							<a
+								href="https://steamcommunity.com/id/480248681"
+								target="_blank"
+								className="steam"
+								rel="noreferrer"
+							>
+								<FireFilled /> My Steam Account
+							</a>
+							<a
+								href="https://yoomoney.ru/to/4100117492734109"
+								target="_blank"
+								className="donate"
+								rel="noreferrer"
+							>
+								<DollarCircleFilled /> Поддержать создателя приложения
+							</a>
+							<a
+								href="https://discord.com/invite/sathQfW"
+								target="_blank"
+								className="donate"
+								rel="noreferrer"
+							>
+								<DollarCircleFilled /> Поддержать JloKo напишите ему в дискорд
+							</a>
+						</div>
 					</div>
 				</Footer>
 			</footer>
